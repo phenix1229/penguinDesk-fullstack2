@@ -8,7 +8,7 @@ import Search from './Search';
 const Sidebar = ({auth:{isAdmin}, setView}) => {
     const adminButtons = (
         <>
-        <input type="submit" value="New User" className="btn btn-primary btn-block" onClick={() => setView('register')} />
+        <input type="submit" value="New User" className="btn btn-primary btn-block" onClick={() => setView('newUser')} />
         <input type="submit" value="New Group" className="btn btn-primary btn-block" onClick={() => setView('newGroup')} />
         </>
     )

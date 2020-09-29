@@ -2,10 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {clearErrors, register, getGroups} from '../../store/actions/authActions';
 import {setAlert} from '../../store/actions/alertActions';
-import Dropdown from '../layout/Dropdown';
 
 
-const Registration = ({auth:{error, groups}, register, clearErrors, setAlert, getGroups}) => {
+const Register = ({auth:{error}, register, clearErrors, setAlert, getGroups}) => {
 
   useEffect(() => {
 
@@ -18,18 +17,19 @@ const Registration = ({auth:{error, groups}, register, clearErrors, setAlert, ge
   }, [error, getGroups]
   );
 
-    const [user, setUser] = useState({
+    const [newUser, setUser] = useState({
         name:'',
         email:'',
         admin:'',
+        company:'',
         group:'',
         password:'',
         password2:''
     });
 
-    const {name, email, admin, group, password, password2} = user;
+    const {name, email, company, password, password2} = newUser;
     
-    const onChange = e => setUser({...user, [e.target.name]: e.target.value});
+    const onChange = e => setUser({...newUser, [e.target.name]: e.target.value});
 
     const onSubmit = e => {
         e.preventDefault();
@@ -41,25 +41,25 @@ const Registration = ({auth:{error, groups}, register, clearErrors, setAlert, ge
             register({
               name,
               email,
-              admin,
-              group,
+              admin:true,
+              group:'Admin',
+              company,
               password
             });
           }
           setUser({
             name:'',
             email:'',
+            company:'',
             password:'',
             password2:''
           })
-          document.getElementById('admin').value='True';
-          document.getElementById('group').value='';
     }
 
     return (
         <div className="registerForm">
         <h1>
-            <span className="text-primary">Add User</span>
+            <span className="text-primary">Register</span>
         </h1>
         <form>
             <div className="form-group">
@@ -71,15 +71,8 @@ const Registration = ({auth:{error, groups}, register, clearErrors, setAlert, ge
                 <input type="email" name="email" value={email} onChange={onChange} />
             </div>
             <div className="form-group">
-              <label>Admin:</label>
-              <select name='admin' id='admin' onChange={onChange}>
-                <option value="true">True</option>
-                <option value="false">False</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Group:</label>
-              <Dropdown title={'group'} options={groups} onChange={onChange}/>
+                <label htmlFor="company">Company</label>
+                <input type="text" name="company" value={company} onChange={onChange} />
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password</label>

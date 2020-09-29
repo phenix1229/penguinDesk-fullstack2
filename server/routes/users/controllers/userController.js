@@ -20,6 +20,10 @@ module.exports = {
             if(user){
                 return res.status(400).json({msg:'User already exists'});
             };
+            let company = await Company.findOne({name});
+            if(company){
+                return res.status(400).json({msg:'Company already exists'});
+            };
             user = new User({
                 name,
                 email,

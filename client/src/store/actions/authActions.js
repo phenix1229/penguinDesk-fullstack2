@@ -1,7 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import {
-  // REGISTER_SUCCESS,
+  REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
@@ -88,7 +88,7 @@ import {
       const res = await axios.post('/api/users', formData, config);
 
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: REGISTER_SUCCESS,
         payload: res.data
       });
 

@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import { Provider } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Login from './auth/Login';
+import Register from './auth/Register';
 import Navbar from './layout/Navbar';
 import Alerts from './layout/Alerts';
 import setAuthToken from '../utils/setAuthToken';
@@ -27,6 +28,7 @@ class App extends Component {
               <Switch>
                 <Route exact path = '/' component={Home} />
                 <Route exact path = '/login' component={Login} />
+                <Route exact path = '/register' component={Register} />
               </Switch>
             </div>
           </>

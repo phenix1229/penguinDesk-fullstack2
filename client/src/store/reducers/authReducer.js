@@ -74,7 +74,6 @@ import {
           groups: action.payload
         };
       case SET_VIEW:
-        localStorage.setItem('token', action.payload.token);
         return {
           ...state,
           view: action.payload,

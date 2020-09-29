@@ -87,6 +87,30 @@ import {
     try {
       await axios.post('/api/users', formData, config);
 
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      });
+
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: err.response.data.msg
+      });
+    }
+  };
+  
+  // Add User
+  export const addUser = (formData) => async dispatch => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      await axios.post('/api/users/addUser', formData, config);
+
       loadUser();
     } catch (err) {
       dispatch({

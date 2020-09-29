@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import Sidebar from '../layout/Sidebar';
-import Register from '../auth/Register';
+import NewUser from '../auth/NewUser';
 import AddGroup from '../auth/AddGroup';
 import NewTicket from '../auth/NewTicket';
 import TicketList from '../auth/TicketList';
@@ -25,7 +25,7 @@ function Home({auth:{isAuthenticated, view}, props:{history}, loadUser}) {
                     <Sidebar />
                 </div>
                 <div id="main">
-                    {view === 'register' && <Register />}
+                    {view === 'newUser' && <NewUser />}
                     {view === 'newGroup' && <AddGroup />}
                     {view === 'newTicket' && <NewTicket />}
                     {(view === 'groupTickets' || view === 'assignedTickets') && <TicketList />}

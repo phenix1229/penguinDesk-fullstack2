@@ -5,7 +5,7 @@ import {setAlert} from '../../store/actions/alertActions';
 import Dropdown from '../layout/Dropdown';
 
 
-const Register = ({auth:{error, groups}, register, clearErrors, setAlert, getGroups}) => {
+const NewUser = ({auth:{error, groups}, register, clearErrors, setAlert, getGroups}) => {
 
   useEffect(() => {
 
@@ -89,7 +89,7 @@ const Register = ({auth:{error, groups}, register, clearErrors, setAlert, getGro
                 <label htmlFor="password2">Confirm Password</label>
                 <input type="password" name="password2" value={password2} onChange={onChange} />
             </div>
-            <input type="submit" value="Register" className="btn btn-primary btn-block" onClick={onSubmit} />
+            <input type="submit" value="NewUser" className="btn btn-primary btn-block" onClick={onSubmit} />
         </form>
             
         </div>
@@ -100,4 +100,4 @@ const mapStateToProps = (state) => ({
     alert: state.alertReducer
 })
 
-export default connect(mapStateToProps, {register, clearErrors, setAlert, getGroups})(Register);
+export default connect(mapStateToProps, {register, clearErrors, setAlert, getGroups})(NewUser);

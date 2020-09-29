@@ -54,8 +54,7 @@ module.exports = {
         if(!errors.isEmpty()){
             return res.status(400).json({errors: errors.array()})
         }
-        const {name, email, password, group, isAdmin} = req.body;
-        const admin = localStorage.token.company
+        const {name, email, password, company, group, isAdmin} = req.body;
 
         try {
             let user = await User.findOne({email});
@@ -66,7 +65,7 @@ module.exports = {
                 name,
                 email,
                 password,
-                company: isAdmin.company,
+                company,
                 group,
                 isAdmin
             });

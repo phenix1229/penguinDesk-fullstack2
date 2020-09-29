@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {clearErrors, register, getGroups} from '../../store/actions/authActions';
+import {clearErrors, addUser, getGroups} from '../../store/actions/authActions';
 import {setAlert} from '../../store/actions/alertActions';
 import Dropdown from '../layout/Dropdown';
 
 
-const NewUser = ({auth:{error, groups}, register, clearErrors, setAlert, getGroups}) => {
+const NewUser = ({auth:{user, error, groups}, addUser, clearErrors, setAlert, getGroups}) => {
 
   useEffect(() => {
 
@@ -18,18 +18,19 @@ const NewUser = ({auth:{error, groups}, register, clearErrors, setAlert, getGrou
   }, [error, getGroups]
   );
 
-    const [user, setUser] = useState({
+    const [newUser, setUser] = useState({
         name:'',
         email:'',
         admin:'',
+        company:'',
         group:'',
         password:'',
         password2:''
     });
 
-    const {name, email, admin, group, password, password2} = user;
+    const {name, email, admin, company, group, password, password2} = newUser;
     
-    const onChange = e => setUser({...user, [e.target.name]: e.target.value});
+    const onChange = e => setUser({...newUser, [e.target.name]: e.target.value});
 
     const onSubmit = e => {
         e.preventDefault();
@@ -38,11 +39,12 @@ const NewUser = ({auth:{error, groups}, register, clearErrors, setAlert, getGrou
           } else if (password !== password2) {
             setAlert('Passwords do not match', 'danger');
           } else {
-            register({
+            addUser({
               name,
               email,
               admin,
               group,
+              company:user.company,
               password
             });
           }
@@ -89,7 +91,7 @@ const NewUser = ({auth:{error, groups}, register, clearErrors, setAlert, getGrou
                 <label htmlFor="password2">Confirm Password</label>
                 <input type="password" name="password2" value={password2} onChange={onChange} />
             </div>
-            <input type="submit" value="NewUser" className="btn btn-primary btn-block" onClick={onSubmit} />
+            <input type="submit" value="Add User" className="btn btn-primary btn-block" onClick={onSubmit} />
         </form>
             
         </div>
@@ -100,4 +102,4 @@ const mapStateToProps = (state) => ({
     alert: state.alertReducer
 })
 
-export default connect(mapStateToProps, {register, clearErrors, setAlert, getGroups})(NewUser);
+export default connect(mapStateToProps, {addUser, clearErrors, setAlert, getGroups})(NewUser);

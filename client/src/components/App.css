@@ -55,7 +55,13 @@ body {
   color: #333;
 }
 
-.registerForm {
+#registerForm {
+  grid-column: 4/6;
+  /* margin-top: 50px; */
+  width: 100%;
+}
+
+.addUserForm {
   margin-top: 50px;
   width: 500px;
 }

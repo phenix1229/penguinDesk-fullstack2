@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {clearErrors, register, getGroups} from '../../store/actions/authActions';
+import {clearErrors, register, getGroups, login} from '../../store/actions/authActions';
 import {setAlert} from '../../store/actions/alertActions';
 
 
-const Register = ({auth:{error}, register, clearErrors, setAlert, getGroups}) => {
+const Register = ({auth:{error}, register, login, clearErrors, setAlert, getGroups}) => {
 
   useEffect(() => {
 
@@ -33,7 +33,7 @@ const Register = ({auth:{error}, register, clearErrors, setAlert, getGroups}) =>
 
     const onSubmit = e => {
         e.preventDefault();
-        if (name === '' || email === '' || password === '') {
+        if (name === '' || email === '' || password === '' || password2 === '' || company === '') {
             setAlert('Please enter all fields', 'danger');
           } else if (password !== password2) {
             setAlert('Passwords do not match', 'danger');
@@ -54,14 +54,15 @@ const Register = ({auth:{error}, register, clearErrors, setAlert, getGroups}) =>
             password:'',
             password2:''
           })
+          login(email, password)
     }
 
     return (
-        <div className="registerForm">
+        <div className="form-container" id="registerForm">
         <h1>
             <span className="text-primary">Register</span>
         </h1>
-        <form>
+        <form onSubmit={onSubmit}>
             <div className="form-group">
                 <label htmlFor="name">Name</label>
                 <input type="text" id="name" name="name" value={name} onChange={onChange} />
@@ -93,4 +94,4 @@ const mapStateToProps = (state) => ({
     alert: state.alertReducer
 })
 
-export default connect(mapStateToProps, {register, clearErrors, setAlert, getGroups})(Register);
+export default connect(mapStateToProps, {register, login, clearErrors, setAlert, getGroups})(Register);

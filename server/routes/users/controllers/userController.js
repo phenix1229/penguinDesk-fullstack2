@@ -1,5 +1,6 @@
 const User = require('../../../models/User');
 const Group = require('../../../models/Group');
+const Company = require('../../../models/Company');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
@@ -20,8 +21,8 @@ module.exports = {
             if(user){
                 return res.status(400).json({msg:'User already exists'});
             };
-            let company = await Company.findOne({name});
-            if(company){
+            let co = await Company.findOne({name});
+            if(co){
                 return res.status(400).json({msg:'Company already exists'});
             };
             user = new User({
@@ -29,7 +30,7 @@ module.exports = {
                 email,
                 password,
                 company,
-                group: "admin",
+                group: `${company}-admin`,
                 isAdmin: true
             });
 
@@ -38,11 +39,18 @@ module.exports = {
             user.password = await bcrypt.hash(password, salt);
 
             await user.save();
-            await Group.findOne({name:group})
+            grp = new Group({
+                name:`${company}-admin`
+            })
+            await grp.save()
             .then(group => {
                 group.members = [...group.members, email];
                 group.save();
+            });
+            co = new Company({
+                name: `${company}`
             })
+            await co.save();
 
             return res.json(user);
         } catch (err) {

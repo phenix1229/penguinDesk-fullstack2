@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+#sidebar {
+    grid-column: 1/2;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 50px 15px 0px 15px;
+    background-color: cornflowerblue;
+    color: rgb(107, 105, 105);
+    position: fixed;
+}
+
+#appTitle {
+    margin: 0px;
+    color: rgb(110, 80, 133);
+}
+
+#appSubtitle {
+    margin-top: 0px;
+    color: rgba(110, 80, 133, 0.774);
+}
+
+#main {
+    grid-column: 2/9;
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+}
+
+#loginFormMain {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+}
+
+#loginFormHeader {
+    grid-column: 1/6;
+    grid-row: 1/2;
+    height: 100px;
+    text-align: center;
+    background-color: cornflowerblue;
+    padding-top:'20px';
+    padding-bottom:'20px';
+}
+
+#loginForm {
+    grid-column: 3/4;
+    grid-row: 2/3;
+}
+
+#openStats {
+    text-align: center;
+}
+
+#dashSmall {
+    margin-top: 15px;
+    margin-bottom: 0px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    padding: 15px;
+}

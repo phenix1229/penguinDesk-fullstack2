@@ -1,0 +1,1 @@
+export let searchIt = term => item => item.issue.toLowerCase().includes(term.toLowerCase());

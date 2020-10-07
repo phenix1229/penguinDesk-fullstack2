@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {clearErrors, register, getGroups, login} from '../../store/actions/authActions';
-import {setAlert} from '../../store/actions/alertActions';
+import {clearErrors, register, getGroups, login} from '../store/actions/authActions';
+import {setAlert} from '../store/actions/alertActions';
 
 
 const Register = ({auth:{error}, register, login, clearErrors, setAlert, getGroups}) => {

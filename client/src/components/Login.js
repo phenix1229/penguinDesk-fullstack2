@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
-import {setAlert} from '../../store/actions/alertActions';
-import {clearErrors, login} from '../../store/actions/authActions';
+import {setAlert} from '../store/actions/alertActions';
+import {clearErrors, login} from '../store/actions/authActions';
 
 
 const Login = ({auth:{error, isAuthenticated}, props:{history}, login, clearErrors, setAlert}) => {

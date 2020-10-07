@@ -14,8 +14,7 @@ function Home({auth:{isAuthenticated, view}, props:{history}, loadUser}) {
         if (isAuthenticated) {
             loadUser();  
         } else {
-            history.push('/register');
-            // history.push('/login');
+            history.push('/landing');
         };
         // eslint-disable-next-line
     }, [isAuthenticated]);

@@ -3,6 +3,7 @@ const Group = require('../../../models/Group');
 const Company = require('../../../models/Company');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
@@ -52,7 +53,18 @@ module.exports = {
             })
             await co.save();
 
-            return res.json(user);
+            const payload = {
+                user: {
+                    id: user.id,
+                }
+            }
+
+            jwt.sign(payload, process.env.JWT_SECRET, {
+                expiresIn:360000
+            }, (err, token) => {
+                if(err) throw err;
+                res.json({token})
+            } );
         } catch (err) {
             console.error(err.message);
             res.status(500).send('server error');

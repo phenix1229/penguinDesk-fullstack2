@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {clearErrors, register, getGroups, login} from '../store/actions/authActions';
+import {clearErrors, register, getGroups} from '../store/actions/authActions';
 import {setAlert} from '../store/actions/alertActions';
 
 
-const Register = ({auth:{error}, register, login, clearErrors, setAlert, getGroups}) => {
+const Register = ({auth:{error}, props:{history}, register, clearErrors, setAlert, getGroups}) => {
 
   useEffect(() => {
 
@@ -46,15 +46,8 @@ const Register = ({auth:{error}, register, login, clearErrors, setAlert, getGrou
               company,
               password
             });
+            history.push('/')
           }
-          setUser({
-            name:'',
-            email:'',
-            company:'',
-            password:'',
-            password2:''
-          })
-          login(email, password)
     }
 
     return (
@@ -89,9 +82,10 @@ const Register = ({auth:{error}, register, login, clearErrors, setAlert, getGrou
         </div>
     )
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
     auth: state.authReducer,
-    alert: state.alertReducer
+    alert: state.alertReducer,
+    props: ownProps
 })
 
-export default connect(mapStateToProps, {register, login, clearErrors, setAlert, getGroups})(Register);
+export default connect(mapStateToProps, {register, clearErrors, setAlert, getGroups})(Register);

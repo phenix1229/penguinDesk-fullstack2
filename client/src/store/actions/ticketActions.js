@@ -35,10 +35,10 @@ export const countTickets = () => async dispatch => {
     }
 };
 
-export const getTickets = () => async dispatch =>{
+export const getTickets = (company) => async dispatch =>{
     try {
         console.log('action')
-        const res = await axios.get('api/tickets')
+        const res = await axios.get(`api/tickets/${company}`)
 
         dispatch ({
             type: LOAD_OPEN_TICKETS,

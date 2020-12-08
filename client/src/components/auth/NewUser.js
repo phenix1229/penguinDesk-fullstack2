@@ -13,7 +13,7 @@ const NewUser = ({auth:{user, error, groups}, addUser, clearErrors, setAlert, ge
       setAlert(error, 'danger');
       clearErrors();
     }
-    getGroups();
+    getGroups(user.company);
     // eslint-disable-next-line
   }, [error, getGroups]
   );
@@ -23,12 +23,13 @@ const NewUser = ({auth:{user, error, groups}, addUser, clearErrors, setAlert, ge
         email:'',
         admin:'',
         company:'',
+        owner:'',
         group:'',
         password:'',
         password2:''
     });
 
-    const {name, email, admin, company, group, password, password2} = newUser;
+    const {name, email, admin, company, owner, group, password, password2} = newUser;
     
     const onChange = e => setUser({...newUser, [e.target.name]: e.target.value});
 
@@ -45,6 +46,7 @@ const NewUser = ({auth:{user, error, groups}, addUser, clearErrors, setAlert, ge
               admin,
               group,
               company:user.company,
+              owner:user.owner,
               password
             });
           }
@@ -54,7 +56,7 @@ const NewUser = ({auth:{user, error, groups}, addUser, clearErrors, setAlert, ge
             password:'',
             password2:''
           })
-          document.getElementById('admin').value='True';
+          document.getElementById('admin').value='';
           document.getElementById('group').value='';
     }
 
@@ -74,10 +76,7 @@ const NewUser = ({auth:{user, error, groups}, addUser, clearErrors, setAlert, ge
             </div>
             <div className="form-group">
               <label>Admin:</label>
-              <select name='admin' id='admin' onChange={onChange}>
-                <option value="true">True</option>
-                <option value="false">False</option>
-              </select>
+              <Dropdown title={'admin'} options={['True', 'False']} onChange={onChange}/>
             </div>
             <div className="form-group">
               <label>Group:</label>

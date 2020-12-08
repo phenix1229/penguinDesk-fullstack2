@@ -34,10 +34,10 @@ import {
   };
   
   // Get Users
-  export const getUsers = () => async dispatch => {
+  export const getUsers = (company) => async dispatch => {
     try {
       console.log('action')
-      const res = await axios.get('/api/auth/users');
+      const res = await axios.get(`/api/auth/users/${company}`);
 
       dispatch({
         type: GET_USERS,
@@ -49,9 +49,9 @@ import {
   };
   
   // Get Groups
-  export const getGroups = () => async dispatch => {
+  export const getGroups = (company) => async dispatch => {
     try {
-      const res = await axios.get('/api/auth/groups');
+      const res = await axios.get(`/api/auth/groups/${company}`);
 
       dispatch({
         type: GET_GROUPS,
@@ -63,7 +63,7 @@ import {
   };
   
   // Add Group
-  export const addGroup = (name) => async dispatch => {
+  export const addGroup = (formData) => async dispatch => {
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ import {
     };
 
     try {
-      await axios.post('/api/auth/groups', name, config);
+      await axios.post('/api/auth/groups', formData, config);
     } catch (err) {
       dispatch({ type: AUTH_ERROR });
     }

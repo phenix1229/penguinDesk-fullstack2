@@ -14,8 +14,8 @@ const NewTicket = ({auth:{error, groups, users, user}, clearErrors, setAlert, ge
       setAlert(error, 'danger');
       clearErrors();
     }
-    getGroups();
-    getUsers();
+    getGroups(user.company);
+    getUsers(user.company);
     // eslint-disable-next-line
   }, [error, getGroups]
   );
@@ -24,10 +24,12 @@ const NewTicket = ({auth:{error, groups, users, user}, clearErrors, setAlert, ge
         client:'',
         issue:'',
         assignedTech:'',
-        assignedGroup:''
+        assignedGroup:'',
+        company:'',
+        owner:''
     });
 
-    const {openedBy, client, issue, assignedTech, assignedGroup} = ticket;
+    const {openedBy, client, issue, assignedTech, assignedGroup, company, owner} = ticket;
     
     const onChange = e => setTicket({...ticket, [e.target.name]: e.target.value});
 
@@ -37,11 +39,13 @@ const NewTicket = ({auth:{error, groups, users, user}, clearErrors, setAlert, ge
             setAlert('Please enter Client, Issue, and Assigned Group', 'danger');
           } else {
             newTicket({
-                openedBy:user.email,
+                openedBy:user.name,
                 client,
                 issue,
                 assignedTech,
-                assignedGroup
+                assignedGroup,
+                company:user.company,
+                owner:user.owner
             });
           }
           setTicket({

@@ -10,7 +10,7 @@ const today = () =>{
     return `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()} (${new Date().getHours()}:${new Date().getMinutes()})`;
   };
 
-const TicketModal = ({ticketState:{ticket, edit}, auth:{groups, users}, clearTicket, updateTicket, editTicket, getGroups, getUsers, getTickets}) => {
+const TicketModal = ({ticketState:{ticket, edit}, auth:{user, groups, users}, clearTicket, updateTicket, editTicket, getGroups, getUsers, getTickets}) => {
     useEffect(() => {
         if (ticket !== null) {
           setTick(ticket);
@@ -29,8 +29,8 @@ const TicketModal = ({ticketState:{ticket, edit}, auth:{groups, users}, clearTic
             resolution:''
           });
         }
-        getGroups();
-        getUsers();
+        getGroups(user.company);
+        getUsers(user.company);
       }, [ticket, edit, getUsers, getGroups]);
     
       const [tick, setTick] = useState({

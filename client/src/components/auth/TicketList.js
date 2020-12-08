@@ -7,7 +7,7 @@ import {getTickets} from '../../store/actions/ticketActions';
 
 const TicketList = ({auth:{user, view}, ticketState:{tickets, ticket}, getTickets}) => {
     useEffect(() => {
-        getTickets()
+        getTickets(user.company)
         // eslint-disable-next-line
     }, [view, ticket]);
 
@@ -16,8 +16,8 @@ const TicketList = ({auth:{user, view}, ticketState:{tickets, ticket}, getTicket
     }
 
     const ticketList = view === 'groupTickets' ? 
-        tickets.filter(ticket => ticket.assignedGroup === user.group) :
-        tickets.filter(ticket => ticket.assignedTech === user.email);
+        tickets.filter(ticket => ticket.company === user.company && ticket.assignedGroup === user.group) :
+        tickets.filter(ticket => ticket.company === user.company && ticket.assignedTech === user.name);
 
     const title = view === 'groupTickets' ? 'Open Tickets (Group)' : 'Open Tickets (Assigned)'
 

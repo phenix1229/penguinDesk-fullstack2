@@ -4,7 +4,7 @@ import {clearErrors, addGroup} from '../../store/actions/authActions';
 import {setAlert} from '../../store/actions/alertActions';
 
 
-const AddGroup = ({auth:{error}, addGroup, clearErrors, setAlert}) => {
+const AddGroup = ({auth:{error, user}, addGroup, clearErrors, setAlert}) => {
 
   useEffect(() => {
     if (error === 'Group already exists') {
@@ -16,10 +16,12 @@ const AddGroup = ({auth:{error}, addGroup, clearErrors, setAlert}) => {
   );
 
     const [group, setGroup] = useState({
-        name:''
+        name:'',
+        company:'',
+        owner:''
     });
 
-    const {name} = group;
+    const {name, company, owner} = group;
     
     const onChange = e => setGroup({...group, [e.target.name]: e.target.value});
 
@@ -29,11 +31,15 @@ const AddGroup = ({auth:{error}, addGroup, clearErrors, setAlert}) => {
             setAlert('Please enter a group name', 'danger');
           } else {
             addGroup({
-                name
+                name,
+                company:user.company,
+                owner:user.owner
             });
           }
           setGroup({
-            name:''
+            name:'',
+            company:'',
+            owner:''
           })
     }
 
